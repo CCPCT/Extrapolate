@@ -1,21 +1,16 @@
-package CCPCT.bedrock_bridging.mixin;
+package CCPCT.extrapolate.mixin;
 
-import CCPCT.bedrock_bridging.Bedrock_bridging;
-import CCPCT.bedrock_bridging.modConfig.ModConfig;
+import CCPCT.extrapolate.Extrapolate;
+import CCPCT.extrapolate.modConfig.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.AttackRange;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec2;
@@ -63,11 +58,11 @@ public class LocalPlayerMixin {
         BlockHitResult raw = player.level().clip(context);
 
         if (raw.getType() == HitResult.Type.MISS) {
-            Bedrock_bridging.magicSelect = false;
+            Extrapolate.magicSelect = false;
             return raw;
         }
 
-        Bedrock_bridging.magicSelect = true;
+        Extrapolate.magicSelect = true;
 
         Vec3 exact = new Vec3(0,raw.getLocation().y(), 0);
 
@@ -104,11 +99,11 @@ public class LocalPlayerMixin {
     public void raycastHitResult(float a, Entity cameraEntity, CallbackInfoReturnable<HitResult> cir) {
         // A. Grab the standard ranges
         if (!ModConfig.get().modEnabled || !(cameraEntity instanceof LocalPlayer player)) {
-            Bedrock_bridging.magicSelect = false;
+            Extrapolate.magicSelect = false;
             return;
         }
 
-        if (Bedrock_bridging.magicDirection != null) {
+        if (Extrapolate.magicDirection != null) {
             cir.setReturnValue(Minecraft.getInstance().hitResult);
         }
 
@@ -143,12 +138,12 @@ public class LocalPlayerMixin {
 
             Vec2 lookAngle = player.getRotationVector();
             if (lookAngle.x < 45) {
-                Bedrock_bridging.magicSelect = false;
+                Extrapolate.magicSelect = false;
             } else {
                 hitResult = traceStraightDown(player, a);
             }
         } else {
-            Bedrock_bridging.magicSelect = false;
+            Extrapolate.magicSelect = false;
         }
 
         cir.setReturnValue(hitResult);

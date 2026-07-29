@@ -1,4 +1,4 @@
-package CCPCT.bedrock_bridging.modConfig;
+package CCPCT.extrapolate.modConfig;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
@@ -10,20 +10,19 @@ import net.minecraft.network.chat.Component;
 public class ConfigScreen extends Screen {
 
     protected ConfigScreen() {
-        super(Component.translatable("easiercrafting.config.title"));
+        super(Component.literal("Extrapolate Config"));
     }
 
     public static Screen getConfigScreen(Screen parent) {
         ModConfig.load();
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(Component.translatable("easiercrafting.config.title"))
+                .setTitle(Component.literal("Extrapolate Config"))
                 .setSavingRunnable(ModConfig::save);
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
         ConfigCategory generalTab = builder.getOrCreateCategory(Component.literal("general"));
-
 
         // General settings
         generalTab.addEntry(entryBuilder.startBooleanToggle(Component.literal("Enable Mod"), ModConfig.get().modEnabled)

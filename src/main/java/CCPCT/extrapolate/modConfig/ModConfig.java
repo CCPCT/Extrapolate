@@ -1,6 +1,6 @@
-package CCPCT.bedrock_bridging.modConfig;
+package CCPCT.extrapolate.modConfig;
 
-import CCPCT.bedrock_bridging.Bedrock_bridging;
+import CCPCT.extrapolate.Extrapolate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
@@ -29,7 +29,7 @@ public class ModConfig {
 
 
     private static final Path CONFIG_PATH = FabricLoader.getInstance()
-            .getConfigDir().resolve(Bedrock_bridging.MOD_ID+".json");
+            .getConfigDir().resolve(Extrapolate.MOD_ID+".json");
 
     public static void load() {
         try {
@@ -48,7 +48,7 @@ public class ModConfig {
         try {
             Files.writeString(CONFIG_PATH, GSON.toJson(get()));
         } catch (IOException e) {
-            System.err.println("Unable to save Bedrock Bridging config!");
+            System.err.println("Unable to save config for "+Extrapolate.MOD_ID);
         }
     }
 }

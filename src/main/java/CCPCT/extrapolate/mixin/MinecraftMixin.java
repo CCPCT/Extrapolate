@@ -1,22 +1,18 @@
-package CCPCT.bedrock_bridging.mixin;
+package CCPCT.extrapolate.mixin;
 
 
-import CCPCT.bedrock_bridging.Bedrock_bridging;
-import CCPCT.bedrock_bridging.modConfig.ModConfig;
-import com.terraformersmc.modmenu.util.mod.Mod;
+import CCPCT.extrapolate.modConfig.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -30,9 +26,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
-
-import static CCPCT.bedrock_bridging.Bedrock_bridging.*;
+import static CCPCT.extrapolate.Extrapolate.*;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {

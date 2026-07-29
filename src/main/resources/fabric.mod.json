@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "bedrock_bridging",
+  "id": "extrapolate",
   "version": "${version}",
-  "name": "Bedrock Bridging",
-  "description": "port bedrock bridging behaviour completely to java",
+  "name": "Extrapolate",
+  "description": "extrapolate entity in-tick position for more accurate position display",
   "authors": ["CCPCT"],
   "contact": {
 
@@ -12,11 +12,11 @@
   "icon": "icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": ["CCPCT.bedrock_bridging.Bedrock_bridging"],
-    "modmenu": ["CCPCT.bedrock_bridging.modConfig.ModMenuHandler"]
+    "client": ["CCPCT.extrapolate.Extrapolate"],
+    "modmenu": ["CCPCT.extrapolate.modConfig.ModMenuHandler"]
   },
   "mixins": [
-    "bedrock_bridging.mixins.json"
+    "extrapolate.mixins.json"
   ],
   "depends": {
     "fabric-api": "*",

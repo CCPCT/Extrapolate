@@ -1,4 +1,4 @@
-package CCPCT.bedrock_bridging.mixin;
+package CCPCT.extrapolate.mixin;
 
 
 import net.minecraft.world.entity.projectile.ProjectileUtil;

@@ -1,8 +1,8 @@
-package CCPCT.bedrock_bridging.mixin;
+package CCPCT.extrapolate.mixin;
 
 
-import CCPCT.bedrock_bridging.Bedrock_bridging;
-import CCPCT.bedrock_bridging.modConfig.ModConfig;
+import CCPCT.extrapolate.Extrapolate;
+import CCPCT.extrapolate.modConfig.ModConfig;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -24,7 +24,7 @@ public class MultiPlayerGameModeMixin {
             cancellable = true
     )
     private void onBlockDestroyed(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        if (Bedrock_bridging.magicSelect) {
+        if (Extrapolate.magicSelect) {
             cir.setReturnValue(false);
         }
     }
@@ -35,7 +35,7 @@ public class MultiPlayerGameModeMixin {
             cancellable = true
     )
     private void onStartBlockDestroy(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-        if (Bedrock_bridging.magicSelect) {
+        if (Extrapolate.magicSelect) {
             cir.setReturnValue(false);
         }
     }

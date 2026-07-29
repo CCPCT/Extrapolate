@@ -1,4 +1,4 @@
-package CCPCT.bedrock_bridging.modConfig;
+package CCPCT.extrapolate.modConfig;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
