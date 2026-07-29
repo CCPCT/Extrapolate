@@ -26,20 +26,33 @@ public class ConfigScreen extends Screen {
 
         // General settings
         generalTab.addEntry(entryBuilder.startBooleanToggle(Component.literal("Enable Mod"), ModConfig.get().modEnabled)
-                .setDefaultValue(true)
+                .setDefaultValue(false)
                 .setSaveConsumer(newValue -> ModConfig.get().modEnabled = newValue)
                 .build());
 
-        generalTab.addEntry(entryBuilder.startFloatField(Component.literal("Block reach"), ModConfig.get().reach)
-                .setTooltip(Component.literal("adjust distance u can reach a block\n-1 or 4.5= no change"))
-                .setDefaultValue(-1f)
-                .setSaveConsumer(newValue -> ModConfig.get().reach = newValue)
+        generalTab.addEntry(entryBuilder.startFloatField(Component.literal("Extrapolation weight"), ModConfig.get().extraWeight)
+                .setTooltip(Component.literal("How much % of position is extrapolated:\n0=vanilla, full interpolate\n1=fully extrapolate\n(dont put over 1 :3)"))
+                .setDefaultValue(0f)
+                .setMin(0f).setMax(ModConfig.get().debug ? 67f : 1f)
+                .setSaveConsumer(newValue -> ModConfig.get().extraWeight = newValue)
                 .build());
 
-        generalTab.addEntry(entryBuilder.startIntField(Component.literal("Placement interval"), ModConfig.get().placementInterval)
-                .setTooltip(Component.literal("delay between place blocks in ticks: 6 for bedrock, 4 for java"))
-                .setDefaultValue(4)
-                .setSaveConsumer(newValue -> ModConfig.get().placementInterval = newValue)
+        generalTab.addEntry(entryBuilder.startBooleanToggle(Component.literal("Disable interpolation & extrapolation"), ModConfig.get().disableSmooth)
+                .setTooltip(Component.literal("Show jaggy movements, update every tick (20/s)\ngives most accurate position but bad for eyes"))
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> ModConfig.get().disableSmooth = newValue)
+                .build());
+
+        generalTab.addEntry(entryBuilder.startBooleanToggle(Component.literal("Only extrapolate hitbox"), ModConfig.get().onlyHitbox)
+                .setTooltip(Component.literal("only extrapolate f3+h hitbox and keep entity rendering vanilla interpolated"))
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> ModConfig.get().onlyHitbox = newValue)
+                .build());
+
+        generalTab.addEntry(entryBuilder.startBooleanToggle(Component.literal("Render Entities by physics pos"), ModConfig.get().renderPhysics)
+                .setTooltip(Component.literal("render entities on their true physics position instead of movement packets from server\n(just like how hitbox is rendered)\nThis will make their velocity more stable and prone to packet timing jitter\nirriviant in self integrated server"))
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> ModConfig.get().renderPhysics = newValue)
                 .build());
 
         generalTab.addEntry(entryBuilder.startBooleanToggle(Component.literal("Debug"), ModConfig.get().debug)

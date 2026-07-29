@@ -4,17 +4,13 @@
   "package": "CCPCT.extrapolate.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
-    "LocalPlayerMixin",
-    "MinecraftMixin",
-    "MultiPlayerGameModeMixin",
-    "ProjectileUtilMixin"
+    "EntityMixin",
+    "EntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "overwrites": {
     "requireAnnotations": true
-  },
-  "mixins": [
-  ]
+  }
 }

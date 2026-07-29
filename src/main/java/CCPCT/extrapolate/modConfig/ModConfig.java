@@ -11,10 +11,11 @@ import java.nio.file.Path;
 
 public class ModConfig {
 
-    public boolean modEnabled = true;
-    public float reach = -1f;
-    public int placementInterval = 4;
-
+    public boolean modEnabled = false;
+    public float extraWeight = 0f;
+    public boolean disableSmooth = false;
+    public boolean onlyHitbox = false;
+    public boolean renderPhysics = false;
     public boolean debug = false;
 
     public static ModConfig get() {

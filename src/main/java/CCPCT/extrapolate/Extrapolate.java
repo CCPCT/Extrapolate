@@ -6,6 +6,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
@@ -16,47 +17,26 @@ import org.lwjgl.glfw.GLFW;
 
 public class Extrapolate implements ClientModInitializer {
     public static final String MOD_ID = "extrapolate";
-    public static KeyMapping enableModKey;
-
-    public static boolean magicSelect = false;
-    public static Vec3i magicDirection;
-    public static boolean prepareMagic = false;
-    public static double magicY = 0;
-    public static BlockPos lastPlacePos;
-    public static Vec3 lastPlacePosRelative;
-
 
     @Override
     public void onInitializeClient() {
-        KeyMapping.Category keybindCat = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "keys"));
         ModConfig.load();
-        // Register the KeyMapping
-        enableModKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
-                "key."+ MOD_ID +".enableMod",
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_B,
-                keybindCat
-        ));
 
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            var player = client.player;
-            if (player == null) return;
+    }
 
-            if (enableModKey.consumeClick()) {
-                ModConfig.get().modEnabled ^= true;
-                client.player.sendOverlayMessage(Component.translatable("BE placement " + (ModConfig.get().modEnabled ? "§aON" : "§cOFF")));
-                ModConfig.save();
-            }
+    public static double extrapolate(double oldPos, double currentPos) {
+        return extrapolate(oldPos, currentPos, Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false));
+    }
 
-            if (client.options.keyUse.isDown()) {
-                // placing blocks
+    public static double extrapolate(double oldPos, double currentPos, float partialTicks) {
+        if (ModConfig.get().disableSmooth) {
+            return currentPos;
+        }
 
-            } else {
-                lastPlacePos = null;
-                lastPlacePosRelative = null;
-                prepareMagic = false;
-                magicDirection = null;
-            }
-        });
+        double velocity = currentPos - oldPos;
+
+        double time = partialTicks + ModConfig.get().extraWeight;
+
+        return oldPos + (velocity * time);
     }
 }
